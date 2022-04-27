@@ -50,9 +50,10 @@ end)
 
 RegisterServerCallback('vrp_vehshop:checkPrice', function(source, cb, data) 
     local src = source
-    if vRP.getMoney({vRP.getUserId({src})}) >= data.price then 
-       vRP.tryPayment({vRP.getUserId({src}),data.price})
+    if vRP.tryPayment({vRP.getUserId({src}),data.price}) then
           cb(true)
+    else 
+    vRPclient.notify(src,{"nu ai bani"})
     end
 end)
  
