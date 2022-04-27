@@ -102,7 +102,7 @@ function loadCat(x) {
 	    
 	   if(key == 0) {
 		  active = `active`;
-		  $.post("https://vrp_vehshop/showCar", JSON.stringify({ name: val.name }), function(x){});
+		  $.post("https://${GetParentResourceName()}/showCar", JSON.stringify({ name: val.name }), function(x){});
           setPrice(val.price);
           $("#vehicle-name").html(val.name);
     
@@ -133,7 +133,7 @@ $(document).on('click', '.vehicle-list-name', function(e){
     setTimeout(() => {
         $(this).addClass("active");  
     }, 100);  
-    $.post("https://vrp_vehshop/showCar", JSON.stringify({ name: $(this).data("name") }), function(x){});
+    $.post("https://${GetParentResourceName()}/showCar", JSON.stringify({ name: $(this).data("name") }), function(x){});
     
     $("#vehicle-name").html($(this).data("name"));
 
@@ -160,7 +160,7 @@ $(document).on('keydown', function() {
         case 27: 
             $("#wrap").hide();
             $("body").hide();
-			$.post("https://vrp_vehshop/close", JSON.stringify({}), function(x){});
+			$.post("https://${GetParentResourceName()}/close", JSON.stringify({}), function(x){});
             break;
     }
 });
@@ -168,7 +168,7 @@ $(document).on('keydown', function() {
 function testdrive(){
             $("#wrap").hide();
             $("body").hide();
-			$.post("https://vrp_vehshop/testdrive", JSON.stringify({}), function(x){});
+			$.post("https://${GetParentResourceName()}/testdrive", JSON.stringify({}), function(x){});
 }
 
 
@@ -178,7 +178,7 @@ var startMovingLeft = false;
 async function moveRight(){
     startMovingRight = true;
     while (startMovingRight){
-        $.post('https://vrp_vehshop/moveright');
+        $.post('https://${GetParentResourceName()}/moveright');
         await sleep(5);
     }
     
@@ -191,7 +191,7 @@ function stopMovingRight(){
 async function moveLeft(){
     startMovingLeft = true;
     while (startMovingLeft){
-        $.post('https://vrp_vehshop/moveleft');
+        $.post('https://${GetParentResourceName()}/moveleft');
         await sleep(5);
     }
     
@@ -210,7 +210,7 @@ function sleep(ms) {
 
 $(document).on('click', '.choose-color-circle', function(e){
     var rgb = RGBvalues.color($(this).css("background-color"));
-    $.post("https://vrp_vehshop/setcolour", JSON.stringify({rgb: rgb}), function(x){});
+    $.post("https://${GetParentResourceName()}/setcolour", JSON.stringify({rgb: rgb}), function(x){});
 });
 
 $(document).on('click', '.choose-color-circlex', function(e){
@@ -237,7 +237,7 @@ function plakaonay() {
         plate = plate + obj.value;
     });
     
-    $.post("https://vrp_vehshop/checkPlatePrice", JSON.stringify({plate: plate}), function(x){
+    $.post("https://${GetParentResourceName()}/checkPlatePrice", JSON.stringify({plate: plate}), function(x){
        if(x == true) { plakaiptal(); }     
     });  
 }
@@ -246,11 +246,11 @@ function buy() {
 
     
      
-   $.post("https://vrp_vehshop/buy", function(x){ 
+   $.post("https://${GetParentResourceName()}/buy", function(x){ 
         if(x == true) {  
             $("#wrap").hide();
             $("body").hide();
-			//$.post("https://vrp_vehshop/close", JSON.stringify({}), function(x){});
+			$.post("https://${GetParentResourceName()}/close", JSON.stringify({}), function(x){});
         }else {
             $("#btn-buy-money").animate({ color: "white",  backgroundColor: "rgb( 255, 0, 0 )" });
             setTimeout(() => {
@@ -325,7 +325,7 @@ $(document).ready(function() {
     $('.colorpicker').minimalColorpicker({
         color: '#4513e9',
         onUpdateColor: function(e, color) {
-            $.post("https://vrp_vehshop/setcolour", JSON.stringify({rgb: color.rgb}), function(x){});
+            $.post("https://${GetParentResourceName()}/setcolour", JSON.stringify({rgb: color.rgb}), function(x){});
         }
     });
 });
