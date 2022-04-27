@@ -2,7 +2,7 @@ local Tunnel = module("vrp", "lib/Tunnel")
 local Proxy = module("vrp", "lib/Proxy")
 
 vRP = Proxy.getInterface("vRP")
-vRPclient = Tunnel.getInterface("vRP","vRP_bank")
+vRPclient = Tunnel.getInterface("vRP","vRP_showroom")
  
 ------ CallBacks
 ServerCallbacks = {}
@@ -50,8 +50,8 @@ end)
 
 RegisterServerCallback('vrp_vehshop:checkPrice', function(source, cb, data) 
     local src = source
-    if (vRP.getMoney({vRP.getUserId({src})})+vRP.getBankMoney({vRP.getUserId({src})})) >= data.price then 
-       vRP.tryFullPayment({vRP.getUserId({src}),data.price})
+    if vRP.getMoney({vRP.getUserId({src})}) >= data.price then 
+       vRP.tryPayment({vRP.getUserId({src}),data.price})
           cb(true)
     end
 end)
